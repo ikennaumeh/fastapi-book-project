@@ -1,9 +1,9 @@
 name: Deploy to Azure
 
 on:
-  push:
+  pull_request:
     branches:
-      - main  # Runs only when code is pushed to main
+      - main
 
 jobs:
   deploy:
@@ -25,4 +25,4 @@ jobs:
             git pull origin main &&
             source venv/bin/activate &&
             pip install -r requirements.txt &&
-            sudo systemctl restart your-app.service
+            sudo systemctl restart fastapi.service
