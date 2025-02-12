@@ -1,4 +1,4 @@
-name: Python CI/CD
+name: CI/CD
 
 on:
     pull_request:
@@ -29,22 +29,22 @@ jobs:
                   pytest tests/ -v
 
     deploy:
-    name: Deploy Application
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Deploy to Azure VM
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.SECRET_HOST }}
-          username: ${{ secrets.SECRET_USER }}
-          password: ${{ secrets.SECRET_PASSWORD }}
-          script: |
-            cd ~/fastapi-book-project &&
-            git pull origin main &&
-            source venv/bin/activate &&
-            pip install -r requirements.txt &&
-            sudo systemctl restart fastapi.service
+      name: Deploy Application
+      runs-on: ubuntu-latest
+  
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v3
+  
+        - name: Deploy to Azure VM
+          uses: appleboy/ssh-action@v0.1.6
+          with:
+            host: ${{ secrets.SECRET_HOST }}
+            username: ${{ secrets.SECRET_USER }}
+            password: ${{ secrets.SECRET_PASSWORD }}
+            script: |
+              cd ~/fastapi-book-project &&
+              git pull origin main &&
+              source venv/bin/activate &&
+              pip install -r requirements.txt &&
+              sudo systemctl restart fastapi.service
