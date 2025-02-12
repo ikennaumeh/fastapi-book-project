@@ -1,4 +1,4 @@
-name: CI/CD
+name: Python CI/CD
 
 on:
     pull_request:
@@ -29,10 +29,10 @@ jobs:
                   pytest tests/ -v
 
     deploy:
-      name: Deploy Application
-      runs-on: ubuntu-latest
-  
-      steps:
+        runs-on: ubuntu-latest
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+        steps:
         - name: Checkout Repository
           uses: actions/checkout@v3
   
